@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="content-header">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Customers</h1>
+      </div><!-- /.col -->
+      <div class="col-sm-6">
+        <button class="movie-add-btn" mat-raised-button aria-label="add" (click)="addCustomer()">
+          <mat-icon color="" aria-label="Add">add</mat-icon>Create New
+        </button>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)">
+  </mat-form-field>
+  <div class="mat-elevation-z8">  
+    <table mat-table [dataSource]="dataSource">
+  
+      <!-- FirstName Column -->
+      <ng-container matColumnDef="FirstName">
+        <th mat-header-cell *matHeaderCellDef> FirstName </th>
+        <td mat-cell *matCellDef="let element"> {{element.FirstName}} </td>
+      </ng-container>
+  
+      <!-- LastName Column -->
+      <ng-container matColumnDef="LastName">
+        <th mat-header-cell *matHeaderCellDef> LastName </th>
+        <td mat-cell *matCellDef="let element"> {{element.LastName}} </td>
+      </ng-container>
+  
+      <!-- Email Column -->
+      <ng-container matColumnDef="Email">
+        <th mat-header-cell *matHeaderCellDef> Email </th>
+        <td mat-cell *matCellDef="let element"> {{element.Email}} </td>
+      </ng-container>
+  
+      <!-- DateOfBirth Column -->
+      <ng-container matColumnDef="DateOfBirth">
+        <th mat-header-cell *matHeaderCellDef> DateOfBirth </th>
+        <td mat-cell *matCellDef="let element"> {{element.DateOfBirth | date:"mediumDate"}} </td>
+      </ng-container>
+
+      <!-- RegistrationDate Column -->
+      <ng-container matColumnDef="RegistrationDate">
+        <th mat-header-cell *matHeaderCellDef> RegistrationDate </th>
+        <td mat-cell *matCellDef="let element"> {{element.RegistrationDate | date:"mediumDate"}} </td>
+      </ng-container>
+
+      <!-- Mobile Column -->
+      <ng-container matColumnDef="Mobile">
+        <th mat-header-cell *matHeaderCellDef> Mobile </th>
+        <td mat-cell *matCellDef="let element"> {{element.Mobile | phonePipe}} </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editCustomer(row)" class="row-link"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

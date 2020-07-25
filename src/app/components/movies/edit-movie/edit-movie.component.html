@@ -1,0 +1,73 @@
+<div class="movie-add-modal">
+  <h1 mat-dialog-title>Edit Movie</h1>
+  <hr>
+  <div mat-dialog-content>
+    <form [formGroup]="service.form" class="normal-form">
+      <mat-grid-list cols="2" rowHeight="450px">
+        <mat-grid-tile>
+          <div class="controls-container">
+            <!-- <input type="hidden" formControlName="ID"> -->
+            <div class="col-12">
+              <img class="movie-img-preview" [src]="imageToShow">
+            </div>
+            <div class="col-12">
+              <input type="file" #Image accept="image/*" (change)="handleFileInput($event.target.files)">
+            </div>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="controls-container">
+            <mat-form-field>
+              <input matInput formControlName="Title" placeholder="Title*">
+              <mat-error *ngIf="service.form.controls['Title']?.errors?.required">This field is required.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput formControlName="Description" placeholder="Description">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput formControlName="Director" placeholder="Director*">
+              <mat-error *ngIf="service.form.controls['Director']?.errors?.required">This field is required.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput formControlName="Writer" placeholder="Writer*">
+              <mat-error *ngIf="service.form.controls['Writer']?.errors?.required">This field is required.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-select formControlName="GenreId" placeholder="Genre*">                
+                <mat-option *ngFor="let genre of genreService.genres" [value]="genre.ID">{{genre.Name}}</mat-option>                
+              </mat-select>
+              <mat-error *ngIf="service.form.controls['Genre']?.errors?.required">This field is required.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput [matDatepicker]="ReleaseDate" placeholder="Release Date" formControlName="ReleaseDate">
+              <mat-datepicker-toggle matSuffix [for]="ReleaseDate">
+              </mat-datepicker-toggle>
+              <mat-datepicker #ReleaseDate></mat-datepicker>
+              <mat-error *ngIf="service.form.controls['ReleaseDate']?.errors?.required">This field is required.</mat-error>
+            </mat-form-field>
+            <app-rating [inRating]="rating" (rating)="updateRating($event)"></app-rating>
+            <input type="hidden" formControlName="Rating">            
+          </div>
+        </mat-grid-tile>        
+      </mat-grid-list>
+      <hr>
+      <mat-grid-list cols="1" rowHeight="500px">
+        <mat-grid-tile>
+          <!-- <div class="controls-container"> -->
+            <div class="col-12">
+              <app-list-rental [movieId]="ident"></app-list-rental>
+            </div>            
+          <!-- </div> -->
+        </mat-grid-tile>
+      </mat-grid-list>
+    </form>
+  </div>
+  <hr>
+  <div mat-dialog-actions>
+    <button mat-raised-button color="primary" type="button" [disabled]="service.form.invalid"
+      (click)="editMovie()">Edit</button>    
+    <button mat-raised-button color="basic" type="button" (click)="onClose()" cdkFocusInitial>Cancel</button>
+    <!-- Este boton lo tuve que comentar y poner uno en el que pueda controlar que pasa cuando cierro la modal ya que necesito limpiar la form -->
+    <!-- <button mat-raised-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button> -->
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<div>      
+  <h1 class="m-0 text-dark">Rentals</h1>      
+  <div class="row mb-2">
+    <div class="col-sm-6">
+      <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)">
+      </mat-form-field>
+    </div><!-- /.col -->
+    <div class="col-sm-6">
+      <!-- <button class="movie-add-btn" mat-raised-button aria-label="add" (click)="rent()">Rent</button> -->
+    </div>
+  </div>
+  <div class="mat-elevation-z8">  
+    <table mat-table [dataSource]="dataSource">
+  
+      <!-- Customer Column -->
+      <ng-container matColumnDef="Customer">
+        <th mat-header-cell *matHeaderCellDef> Customer </th>
+        <td mat-cell *matCellDef="let element"> {{element.Customer}} </td>
+      </ng-container>
+  
+      <!-- Rental Date Column -->
+      <ng-container matColumnDef="Rental Date">
+        <th mat-header-cell *matHeaderCellDef> Rental Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.RentalDate | date:"mediumDate"}} </td>
+      </ng-container>
+
+      <!-- Returned Date Column -->
+      <ng-container matColumnDef="Returned Date">
+        <th mat-header-cell *matHeaderCellDef> Returned Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.ReturnedDate | date:"mediumDate"}} </td>
+      </ng-container>
+  
+      <!-- Status Column -->
+      <ng-container matColumnDef="Status">
+        <th mat-header-cell *matHeaderCellDef> Status </th>
+        <td mat-cell *matCellDef="let element"> {{element.Status}} </td>
+      </ng-container>
+  
+      <!-- Action Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>  </th>
+        <td mat-cell *matCellDef="let row"> <button mat-raised-button color="primary" type="button" (click)="returnMovie(row)" [disabled]="row.Status == 'Returned'">Return</button> </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>
+
+

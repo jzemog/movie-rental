@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="content-header">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Movies</h1>
+      </div><!-- /.col -->
+      <div class="col-sm-6">
+        <button class="movie-add-btn" mat-raised-button aria-label="add" (click)="addMovie()">
+          <mat-icon color="" aria-label="Add">add</mat-icon>Create New
+        </button>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="5.0%" fxLayoutAlign="center"> -->
+  <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="1.0%" fxLayoutAlign="space-between"> -->
+  <div class="movies-container">
+    <mat-card class="card-movie" *ngFor="let movie of movies">
+      <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
+        <span fxFlex="100%">{{movie.Title}}</span>
+      </mat-card-title>
+      <mat-card-subtitle>
+        <button mat-raised-button aria-label="add" (click)="rent(movie)">Rent</button>           
+      </mat-card-subtitle>
+      <img mat-card-image class="movie-img" [src]="movie.ImageUrl" alt="Poster">
+      <mat-card-content>
+      </mat-card-content>
+      <mat-card-actions>
+        <span fxFlex="70%">          
+          <app-rating [inRating]="movie.Rating" (rating)="updateRating($event)" [ngClass]="{'disable-rating':true}"></app-rating>     
+        </span>
+        <button mat-icon-button fxFlex="15%">
+          <mat-icon color="primary" (click)="editMovie(movie)">mode_edit</mat-icon>
+        </button>
+        <button mat-icon-button fxFlex="15%">
+          <mat-icon color="warn" (click)="deleteMovie(movie)">delete</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

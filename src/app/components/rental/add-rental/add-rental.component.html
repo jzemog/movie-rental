@@ -1,0 +1,35 @@
+<div class="rent-modal">
+  <h1 mat-dialog-title>Rent Movie: {{name}}</h1>
+  <hr>
+  <div mat-dialog-content>
+    <form [formGroup]="service.form" class="normal-form">
+      <mat-grid-list cols="1" rowHeight="140px">
+        <mat-grid-tile>
+          <div class="controls-container">
+            <mat-form-field>
+              <mat-select formControlName="StockId" placeholder="Available Stock">
+                <mat-option>None</mat-option>
+                <ng-container *ngFor="let stock of stocks">
+                  <mat-option value="{{stock.ID}}">{{stock.UniqueKey}}</mat-option>
+                </ng-container>
+              </mat-select>
+              <mat-error *ngIf="service.form.controls['StockId']?.errors?.required">This field is required.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-select formControlName="CustomerId" placeholder="Select Customer">
+                <mat-option *ngFor="let customer of customers" [value]="customer.ID">{{customer.FirstName}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="service.form.controls['CustomerId']?.errors?.required">This field is required.</mat-error>
+            </mat-form-field>      
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </form>
+  </div>
+  <hr>
+  <div mat-dialog-actions>
+    <button mat-raised-button color="primary" type="button" [disabled]="service.form.invalid"
+      (click)="addRental()">Rent</button>
+    <button mat-raised-button color="basic" type="button" (click)="onClose()" cdkFocusInitial>Cancel</button>
+  </div>
+</div>

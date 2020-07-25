@@ -1,0 +1,44 @@
+<div class="cust-modal">
+  <h1 mat-dialog-title>Create Customer</h1>
+  <hr>
+  <div mat-dialog-content>
+    <form [formGroup]="service.form" class="normal-form">
+      <mat-grid-list cols="1" rowHeight="336px">
+        <mat-grid-tile>
+          <div class="controls-container">
+            <mat-form-field>
+              <input matInput formControlName="FirstName" placeholder="FirstName*">
+              <mat-error>This field is required.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput formControlName="LastName" placeholder="LastName*">
+              <mat-error>This field is required.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput formControlName="Email" placeholder="Email*">
+              <mat-error *ngIf="service.form.controls['Email']?.errors?.required">This field is required.</mat-error>
+              <mat-error *ngIf="service.form.controls['Email']?.errors?.email">Please enter a valid email.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput [matDatepicker]="DateOfBirth" formControlName="DateOfBirth" placeholder="DOB*" readonly>
+              <mat-datepicker-toggle matSuffix [for]="DateOfBirth"></mat-datepicker-toggle>
+              <mat-datepicker #DateOfBirth disabled="false"></mat-datepicker>
+              <mat-error *ngIf="service.form.controls['DateOfBirth']?.errors?.required">This field is required.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input type="tel" matInput formControlName="Mobile" placeholder="Mobile*">
+              <mat-error *ngIf="service.form.controls['Mobile']?.errors?.required">This field is required.</mat-error>
+              <mat-error *ngIf="service.form.controls['Mobile']?.errors?.pattern">Enter a valid phone number.</mat-error>
+            </mat-form-field>
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </form>
+  </div>
+  <hr>
+  <div mat-dialog-actions>
+    <button mat-raised-button color="primary" type="button" [disabled]="service.form.invalid"
+      (click)="addCustomer()">Save</button>
+    <button mat-raised-button color="basic" type="button" (click)="onClose()" cdkFocusInitial>Cancel</button>
+  </div>
+</div>
